@@ -1,0 +1,30 @@
+{
+  "name": "web_community",
+  "version": "1.0.0",
+  "description": "web_community con Stack MEAN",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gunvolt02/web_community.git"
+  },
+  "keywords": [
+    "Stack",
+    "MEAN",
+    "web_community",
+    "blogging",
+    "app"
+  ],
+  "author": "Lorenzo Maiuri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gunvolt02/web_community/issues"
+  },
+  "homepage": "https://github.com/Gunvolt02/web_community#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.7"
+  }
+}
