@@ -2,7 +2,7 @@
 const crypto = require('crypto').randomBytes(256).toString('hex');
 
 module.exports = { // per esportare il file quando richiesto
-  uri: 'mongodb://localhost:27017/' + this.db,
+  uri: 'mongodb://localhost:27017/web_community',
   secret: crypto, // codice interno segreto utilizzato per varie autenticazioni (db, token, ecc..)
   db: 'web_community'
 }

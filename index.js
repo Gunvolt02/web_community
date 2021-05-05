@@ -1,8 +1,10 @@
 const express = require('express');  // prendo il package del framework express
 const app = express(); // lo inizializzo e lo assegno alla costante app che rappresenta la mia applicazione
+const router = express.Router(); // importo la classe Router da Express che fa da middleware
 const mongoose = require('mongoose'); // prendo il package di mongoose
 const config = require('./config/database'); // prendo le informazioni per il database da me create
-const path = require('path');
+const path = require('path'); // package per i path di sistema
+const authentication = require('./routes/authentication') (router); // prendo il backend per l'autenticazione da me creata
 
 mongoose.Promise = global.Promise; // configurazione di setup generale per evitare alcuni warning
 // si connette al database
@@ -15,8 +17,8 @@ mongoose.connect(config.uri, {useNewUrlParser: true, useUnifiedTopology: true}, 
   }
 });
 
-// prende il file che è stato creato con Angular
-app.use(express.static(__dirname + '/client/dist/client'));
+app.use(express.static(__dirname + '/client/dist/client')); // imposto la directory in cui è presente il frontend creato con Angular
+app.use('/authentication', authentication); // inserisco il backend da me importato in precedenza
 
 // nel caso in cui riceva una richiesta (req) GET (HTTP) in una qualsiasi (*) route rispondo (res) con questa funzione (operatore freccia =>)
 app.get('*', (req, res) => {
