@@ -1,0 +1,79 @@
+<h1 class="page-header">Registrazione</h1>
+
+<form [formGroup]="form" (submit)="onRegisterSubmit()">
+  <div class="mb-3 form-group">
+    <label for="InputEmail1" class="form-label">Indirizzo Email</label>
+    <!-- oggetto che controlla se ci sono errori (da me definiti in precedenza) e se l'email è stata inserita -->
+    <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty), 'has-success': !form.controls.email.errors}">
+      <input formControlName="email" name="email" type="email" class="form-control" id="InputEmail1">
+      <ul class="help-block">
+        <!-- mostrato solo se (*ngIf) c'è l'errore specificato -->
+        <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">email richiesta</li>
+        <li *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) && form.controls.email.dirty">lunghezza dell'email non valida</li>
+        <li *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">email non valida</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="InputUsername" class="form-label">Username</label>
+    <div [ngClass]="{'has-error': (form.controls.username.errors && form.controls.username.dirty), 'has-success': !form.controls.username.errors}">
+      <input formControlName="username" name="username" type="text" class="form-control" id="InputUsername">
+      <ul class="help-block">
+        <!-- mostrato solo se (*ngIf) c'è l'errore required -->
+        <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">username richiesto</li>
+        <li *ngIf="(form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength) && form.controls.username.dirty">lunghezza dello username non valida</li>
+        <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">username non valido</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="InputNome" class="form-label">Nome</label>
+    <div [ngClass]="{'has-error': (form.controls.nome.errors && form.controls.nome.dirty), 'has-success': !form.controls.nome.errors}">
+      <input formControlName="nome" name="nome" type="text" class="form-control" id="InputNome">
+      <ul class="help-block">
+        <!-- mostrato solo se (*ngIf) c'è l'errore required -->
+        <li *ngIf="form.controls.nome.errors?.required && form.controls.nome.dirty">nome richiesto</li>
+        <li *ngIf="(form.controls.nome.errors?.minlength || form.controls.nome.errors?.maxlength) && form.controls.nome.dirty">lunghezza del nome non valida</li>
+        <li *ngIf="form.controls.nome.errors?.validateName && form.controls.nome.dirty">nome non valido</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="InputCognome" class="form-label">Cognome</label>
+    <div [ngClass]="{'has-error': (form.controls.cognome.errors && form.controls.cognome.dirty), 'has-success': !form.controls.cognome.errors}">
+      <input formControlName="cognome" name="cognome" type="text" class="form-control" id="InputCognome">
+      <ul class="help-block">
+        <!-- mostrato solo se (*ngIf) c'è l'errore required -->
+        <li *ngIf="form.controls.cognome.errors?.required && form.controls.cognome.dirty">cognome richiesto</li>
+        <li *ngIf="(form.controls.cognome.errors?.minlength || form.controls.cognome.errors?.maxlength) && form.controls.cognome.dirty">lunghezza del cognome non valida</li>
+        <li *ngIf="form.controls.cognome.errors?.validateName && form.controls.cognome.dirty">cognome non valido</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="InputPassword1" class="form-label">Password</label>
+    <div [ngClass]="{'has-error': (form.controls.password.errors && form.controls.password.dirty), 'has-success': !form.controls.password.errors}">
+      <input formControlName="password" name="password" type="password" class="form-control" id="InputPassword1"  aria-describedby="passwordHelp">
+      <div id="passwordHelp" class="form-text">La password deve avere almeno 8 caratteri, una maiuscola, una minuscola e un carattere speciale</div>
+      <ul class="help-block">
+        <!-- mostrato solo se (*ngIf) c'è l'errore required -->
+        <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">password richiesta</li>
+        <li *ngIf="(form.controls.password.errors?.minlength || form.controls.password.errors?.maxlength) && form.controls.password.dirty">lunghezza della password non valida</li>
+        <li *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">password non valida</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="confirmInputPassword1" class="form-label">Conferma Password</label>
+    <div [ngClass]="{'has-error': (form.controls.confirm.errors && form.controls.confirm.dirty) || (form.errors?.matchingPassword && form.controls.confirm.dirty), 'has-success': (!form.controls.confirm.errors && !form.errors?.matchingPassword)}">
+      <input formControlName="confirm" name="confirm" type="password" class="form-control" id="confirmInputPassword1">
+      <ul class="help-block">
+        <!-- mostrato solo se (*ngIf) c'è l'errore required -->
+        <li *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">conferma password richiesta</li>
+        <li *ngIf="form.errors?.matchingPassword && form.controls.confirm.dirty">le password non coincidono</li>
+      </ul>
+    </div>
+  </div>
+  <!-- il bottone è disponibile solo se la form è valida -->
+  <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Registra</button>
+</form>
