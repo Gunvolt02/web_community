@@ -1,0 +1,98 @@
+<h1 class="page-header">Blog</h1>
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+<button (click)="newBlogForm()" *ngIf="!newPost && !authService.loggedIn()" type="button" name="posta" class="btn btn-warning">Nuovo Post</button>
+<button [disabled]="loading" (click)="refreshBlog()" *ngIf="!newPost" type="button" name="posta" class="btn btn-default">Ricarica</button>
+
+<br>
+<br>
+
+<form [formGroup]="form" (submit)="onBlogSubmit()" *ngIf="newPost" name="blogForm">
+  <div class="form-group">
+    <label for="title">Titolo</label>
+    <div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
+      <input formControlName="title" type="text" name="" class="form-control" placeholder="Titolo Recensione" autocomplete="off">
+      <ul class="help-block">
+        <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">titolo richiesto</li>
+        <li *ngIf="form.controls.title.dirty && (form.controls.title.errors?.minLength || form.controls.title.errors?.maxLength)">lunghezza titolo non valida</li>
+        <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.validTitleChecker">titolo non valido</li>
+      </ul>
+    </div>
+  </div>
+</form>
+
+<form [formGroup]="form" (submit)="onBlogSubmit()" *ngIf="newPost" name="blogForm">
+  <div class="form-group">
+    <label for="body">Recensione</label>
+    <div [ngClass]="{'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors}">
+      <textarea formControlName="body" name="name" rows="8" cols="80" placeholder="recensione" class="form-control"></textarea>
+      <ul class="help-block">
+        <li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">recensione richiesta</li>
+        <li *ngIf="form.controls.body.dirty && (form.controls.body.errors?.minLength || form.controls.body.errors?.maxLength)">lunghezza recensione non valida</li>
+      </ul>
+    </div>
+  </div>
+  <button [disabled]="processing" (click)="goBack()" type="button" name="button" class="btn btn-warning">Indietro</button>
+  <button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">Invia</button>
+</form>
+
+<div *ngIf="!newPost">
+  <div class="card">
+
+    <div class="card-header">
+      <h3 class="card-title">Titolo</h3>
+    </div>
+
+    <div class="card-body">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+
+    <div class="card-footer">
+      Scritto da: gv
+      <br>
+      Data: xx/xx/xxxx
+      <br>
+      <div class="">
+        5 stelle:
+        <br>
+        1 stella:
+      </div>
+      <a href="#"><button type="button" name="button" class="btn btn-sm btn-info">Modifica</button></a>
+      <a href="#"><button type="button" name="button" class="btn btn-sm btn-danger">Elimina</button></a>
+      <div class="d-flex pt-1 bd-highlight">
+        <div class="dropdown">
+          <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">5 stelle</button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-warning dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">1 stella</button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <ul class="list-group">
+      <li class="list-group-item">
+        <button (click)="newComment()" type="button" name="button" class="btn btn-sm btn-danger">Commenta</button>
+        <br>
+        <!--<form >
+          <textarea name="comment" rows="8" cols="30" class="form-control"></textarea>
+          <button type="button" name="button" class="btn btn-sm btn-info">Invia</button>
+          <button type="button" name="button" class="btn btn-sm btn-danger">Annulla</button>
+        </form> -->
+      </li>
+    </ul>
+
+  </div>
+</div>

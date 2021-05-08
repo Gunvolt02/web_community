@@ -9,7 +9,7 @@ import { JwtHelperService } from '@auth0/angular-jwt'; // modulo per controllare
 })
 export class AuthService {
 
-  domain = "http://localhost:8080";
+  domain = "http://localhost:8080/";
   authToken;  // contiene il token dell'utente
   user; // informazioni utente
   header; // contine i parametri header della richiesta http
@@ -35,22 +35,22 @@ export class AuthService {
 
   // funzione per registrare gli utenti
   registerUser(user) {
-    return this.httpClient.post(this.domain + '/authentication/register', user);
+    return this.httpClient.post(this.domain + 'authentication/register', user);
   }
 
   // chiama la funzione per controllare se la mail esiste già dalla route /authentication
   checkEmail(email) {
-    return this.httpClient.post(this.domain + '/authentication/checkEmail/', email);
+    return this.httpClient.post(this.domain + 'authentication/checkEmail/', email);
   }
 
   // chiama la funzione per controllare se lo username esiste già dalla route /authentication
   checkUsername(username) {
-    return this.httpClient.post(this.domain + '/authentication/checkUsername/', username);
+    return this.httpClient.post(this.domain + 'authentication/checkUsername/', username);
   }
 
   // funzione di login
   login(user) {
-    return this.httpClient.post(this.domain + '/authentication/login', user);
+    return this.httpClient.post(this.domain + 'authentication/login', user);
   }
 
   // funzione di logout
@@ -72,7 +72,7 @@ export class AuthService {
   getProfile() {
     this.createAuthenticationHeaders();
     console.log(this.header);
-    return this.httpClient.get(this.domain + '/authentication/profile', {headers: this.header});
+    return this.httpClient.get(this.domain + 'authentication/profile', {headers: this.header});
   }
 
   // funzione per controllare se l'utente è loggato

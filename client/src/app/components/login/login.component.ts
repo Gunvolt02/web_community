@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // importo le funzioni di validazione e di creazione per le form
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { AuthGuard } from '../../guards/auth.guard';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   processing = false;
   form: FormGroup;
   storeData;
+  url; // pagina da cui si è stati reindirizzati
 
   // funzione per la creazione della form
   createForm() {
@@ -56,7 +58,11 @@ export class LoginComponent implements OnInit {
         this.message = this.storeData.message;
         this.authService.storeUserData(this.storeData.token, this.storeData.user);
         setTimeout(() => { // timeout prima del redirecting
-          this.router.navigate(['/dashboard']);
+          if (this.url) {
+            this.router.navigate([this.url]); // fa ritrornare alla pagina a cui non si aveva accesso
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
         }, 2000);
       }
     });
@@ -65,12 +71,19 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private authGuard: AuthGuard
   ) {
     this.createForm();
    }
 
   ngOnInit(): void {
+    if (this.authGuard.redirect) { // controlla se è stato reindirizzato
+      this.messageClass = 'alert alert-danger';
+      this.message = 'Effettua il login per accedere alla pagina';
+      this.url = this.authGuard.redirect;
+      this.authGuard.redirect = undefined; // per evitare un redirecting continuo dopo il login
+    }
   }
 
 }
