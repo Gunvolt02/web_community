@@ -1,5 +1,11 @@
 <h1 class="page-header">Registrazione</h1>
 
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+
 <form [formGroup]="form" (submit)="onRegisterSubmit()">
   <div class="mb-3 form-group">
     <label for="InputEmail1" class="form-label">Indirizzo Email</label>
@@ -75,5 +81,5 @@
     </div>
   </div>
   <!-- il bottone è disponibile solo se la form è valida -->
-  <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Registra</button>
+  <button [disabled]="!form.valid || processing" type="submit" class="btn btn-primary">Registra</button>
 </form>

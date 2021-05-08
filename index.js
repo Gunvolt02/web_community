@@ -5,6 +5,7 @@ const mongoose = require('mongoose'); // prendo il package di mongoose
 const config = require('./config/database'); // prendo le informazioni per il database da me create
 const path = require('path'); // package per i path di sistema
 const authentication = require('./routes/authentication') (router); // prendo il backend per l'autenticazione da me creata
+const cors = require('cors'); // middleware per abilitare il Cross-origin resource sharing (condividere le risorse tra backend e frontend in quanto sono su porte diverse) disabilitato di default
 
 mongoose.Promise = global.Promise; // configurazione di setup generale per evitare alcuni warning
 // si connette al database
@@ -17,6 +18,11 @@ mongoose.connect(config.uri, {useNewUrlParser: true, useUnifiedTopology: true}, 
   }
 });
 
+// middleware
+
+app.use(cors({
+  origin: 'http://localhost:4200' // permette cors solo sulla porta 4200
+}));
 app.use(express.static(__dirname + '/client/dist/client')); // imposto la directory in cui è presente il frontend creato con Angular
 app.use('/authentication', authentication); // inserisco il backend da me importato in precedenza
 

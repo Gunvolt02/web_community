@@ -32,7 +32,7 @@ let validUsernameChecker = (username) => {
     return false;
   } else {
       // regular expression per gli username
-      const regExp = new RegExp(/^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/);
+      const regExp = new RegExp(/^(?=[a-zA-Z0-9._]{2,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/);
       return regExp.test(username);
   }
 }
@@ -142,7 +142,7 @@ userSchema.pre('save', function(next) {
 });
 
 // metodo che confronta se la password inserita è uguale a quella nel db
-userSchema.methods.comparePassword = (password) => {
+userSchema.methods.comparePassword = function(password) {
   return bcrypt.compareSync(password, this.password);
 }
 

@@ -1,0 +1,11 @@
+.has-error input {
+    border-color: red;
+    background-color: #ff8080;
+}
+.has-error ul {
+    color: red;
+}
+.has-success input{
+    color: black;
+    background-color: rgb(100, 255, 100);
+}
