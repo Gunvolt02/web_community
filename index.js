@@ -24,13 +24,13 @@ mongoose.connect(config.uri, {useNewUrlParser: true, useUnifiedTopology: true}, 
 app.use(cors({
   origin: 'http://localhost:4200' // permette cors solo sulla porta 4200
 }));
-app.use(express.static(__dirname + '/client/dist/client')); // imposto la directory in cui è presente il frontend creato con Angular
+app.use(express.static(__dirname + '/public')); // imposto la directory in cui è presente il frontend creato con Angular
 app.use('/authentication', authentication); // inserisco il backend da me importato in precedenza
 app.use('/blogs', blogs); // inserisco il backend da me importato in precedenza
 
 // nel caso in cui riceva una richiesta (req) GET (HTTP) in una qualsiasi (*) route rispondo (res) con questa funzione (operatore freccia =>)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+ '/client/dist/client/index.html'));
+  res.sendFile(path.join(__dirname+ '/public/index.html'));
 })
 
 // metto in ascolto il server sulla porta 8080
