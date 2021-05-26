@@ -30,7 +30,7 @@ app.use('/blogs', blogs); // inserisco il backend da me importato in precedenza
 
 // nel caso in cui riceva una richiesta (req) GET (HTTP) in una qualsiasi (*) route rispondo (res) con questa funzione (operatore freccia =>)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+ '../index.html'));
+  res.sendFile(path.join(__dirname+ '/../index.html'));
 })
 
 // metto in ascolto il server sulla porta 8080
