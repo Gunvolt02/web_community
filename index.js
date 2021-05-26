@@ -34,6 +34,6 @@ app.get('*', (req, res) => {
 })
 
 // metto in ascolto il server sulla porta 8080
-app.listen(8080, () => {
+app.listen(process.env.PORT || 8080, () => {
   console.log('In ascolto');
 });
