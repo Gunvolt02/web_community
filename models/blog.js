@@ -76,6 +76,12 @@ const blogSchema = new Schema({
   data: {type: Date, default: Date.now()},
   five: {type: Number, default: 0},
   five_author: {type: Array},
+  four: {type: Number, default: 0},
+  four_author: {type: Array},
+  three: {type: Number, default: 0},
+  three_author: {type: Array},
+  two: {type: Number, default: 0},
+  two_author: {type: Array},
   one: {type: Number, default: 0},
   one_author: {type: Array},
   comments: [{

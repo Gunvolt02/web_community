@@ -141,10 +141,10 @@ module.exports = (router) => {
     const token = req.headers['authorization'];
     if (!token) {
       res.json({success: false, message: 'Nessuna autenticazione fornita'}); // controlla se esiste il token (preso dall'header)
-      console.log('io ho ' + req.headers['authorization']);
+      console.log('io sono' + token);
     } else {
       jwt.verify(token, config.secret, (err, decoded) => { // verifica che sia corretto decriptandolo
-        if (err) {
+        if (err) { console.log('okei');
           res.json({success: false, message: 'autenticazione non riuscita: ', err});
         } else {
           req.decoded = decoded;

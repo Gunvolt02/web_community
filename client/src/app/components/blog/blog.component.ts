@@ -19,6 +19,7 @@ export class BlogComponent implements OnInit {
   processing = false; // controlla se è in corso l'invio della form
   username; // contiene il nome utente
   storeData;
+  blogPosts; // contiene tutte le recensioni
 
   constructor(
     private formBuilder: FormBuilder,
@@ -102,6 +103,7 @@ export class BlogComponent implements OnInit {
       } else {
         this.messageClass = 'alert alert-success';
         this.message = this.storeData.message;
+        this.getAllBlogs(); // mostra la pagina aggiornata
         setTimeout(() => {
           this.newPost = false;
           this.processing = false;
@@ -120,11 +122,21 @@ export class BlogComponent implements OnInit {
     window.location.reload();
   }
 
+  getAllBlogs() {
+    this.blogService.getAllBlogs().subscribe(data => {
+      this.storeData = data;
+      this.blogPosts = this.storeData.blogs;
+      console.log('blogposts: ' +this.blogPosts);
+    });
+  }
+
   ngOnInit(): void {
-    this.authService.getProfile().subscribe(profile => {
+    this.authService.getProfile().subscribe(profile => { // carica le informazioni sull'utente
       this.storeData = profile;
       this.username = this.storeData.user.username;
     });
+
+    this.getAllBlogs(); // carica tutte le recensioni
   }
 
 }

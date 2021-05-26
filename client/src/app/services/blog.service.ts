@@ -12,16 +12,20 @@ export class BlogService {
   // funzione per la creazione degli headers da utilizzare con i token ogni volta che c'è un'autorizzazione
   createAuthenticationHeaders() {
     this.authService.loadToken();
-    this.header = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.authService.authToken
-    });
-    console.log(this.header);
+    this.header = new HttpHeaders();
+    this.header.append('Content-Type','application/json');
+    this.header.append('Authorization', this.authService.authToken);
+    console.log('blog service header token:  ' + this.authService.authToken);
   }
 
   newBlog(blog) {
     this.createAuthenticationHeaders();
-    return this.httpClient.post(this.domain + 'blogs/newBlog', blog);
+    return this.httpClient.post(this.domain + 'blogs/newBlog', blog, {headers: this.header});
+  }
+
+  getAllBlogs() {
+    this.createAuthenticationHeaders();
+    return this.httpClient.post(this.domain + 'blogs/allBlogs', {headers: this.header});
   }
 
   constructor(
